@@ -1,13 +1,33 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
-<ul>
-    <li>Role: {{ user.get_role_display }}</li>
-    <li>Course: {{ user.course|default:"Not set" }}</li>
-    <li>Members: {{ member_count }}</li>
-    <li>Last login: {{ user.last_login|date:"M d, Y" }}</li>
-</ul>
-{% if is_admin %}
-    <a href="{% url 'admin_panel' %}">Open admin panel</a>
-{% endif %}
+
+<div style="max-width: 700px; margin: 40px auto; padding: 25px; font-family: Arial, sans-serif;">
+
+    <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
+    <p style="color: #777;">Here's your account overview.</p>
+
+    <div style="background: #f5f7fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+
+        <h3>Account Information</h3>
+
+        <p><strong>Role:</strong> {{ user.get_role_display }}</p>
+        <p><strong>Course:</strong> {{ user.course|default:"Not set" }}</p>
+        <p><strong>Members:</strong> {{ member_count }}</p>
+        <p><strong>Last Login:</strong> {{ user.last_login|date:"M d, Y" }}</p>
+
+        <a href="{% url 'profile' %}" style="display: inline-block; background: #2563eb; color: white; padding: 10px 18px; border-radius: 6px; text-decoration: none; margin-top: 10px;">
+            Update Profile
+        </a>
+
+    </div>
+
+    {% if is_admin %}
+        <div style="margin-top: 20px;">
+            <a href="{% url 'admin_panel' %}">Open Admin Panel</a>
+        </div>
+    {% endif %}
+
+</div>
+
 {% endblock %}

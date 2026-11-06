@@ -1,10 +1,72 @@
+
 {% extends "base.html" %}
+
 {% block content %}
-{% block footer %} test {% endblock %}
-<h2>Create your account</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-</form>
+
+<div style="max-width: 450px; margin: 40px auto; padding: 25px; font-family: Arial, sans-serif;">
+
+    <h2 style="color: #222; margin-bottom: 10px;">Create Your Account</h2>
+
+    <p style="color: #777; margin-bottom: 20px;">
+        Join CampusConnect today!
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green; background: #e8f5e9; padding: 12px; border-radius: 6px;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <div style="background-color: #f5f7fa; padding: 25px; border-radius: 10px;">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+
+                {% for field in form %}
+                    <div>
+                        <label style="display: block; margin-bottom: 6px; font-weight: 500;">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small style="display: block; color: #777; margin-top: 5px;">
+                                {{ field.help_text|safe }}
+                            </small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <small style="display: block; color: red;">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            {% for error in form.non_field_errors %}
+                <p style="color: red;">{{ error }}</p>
+            {% endfor %}
+
+            <button type="submit"
+                style="width: 100%; background-color: #2563eb; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px;">
+                Sign Up
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px; color: #555;">
+            Already have an account?
+            <a href="{% url 'login' %}" style="color: #2563eb; text-decoration: none;">
+                Log in
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
 {% endblock %}

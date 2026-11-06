@@ -1,10 +1,46 @@
+
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Log in</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log in</button>
-</form>
-<p>No account? <a href="{% url 'signup' %}">Sign up</a></p>
+
+<div style="max-width: 450px; margin: 50px auto; padding: 25px; font-family: Arial, sans-serif;">
+
+    <h2 style="color: #222; margin-bottom: 10px;">Log in</h2>
+
+    <p style="color: #777; margin-bottom: 20px;">
+        Welcome back to CampusConnect!
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green; background-color: #e8f5e9; padding: 12px; border-radius: 6px;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <div style="background-color: #f5f7fa; padding: 25px; border-radius: 10px;">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit"
+                style="width: 100%; background-color: #2563eb; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                Log in
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px; color: #555;">
+            No account?
+            <a href="{% url 'signup' %}" style="color: #2563eb; text-decoration: none;">
+                Sign up
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
 {% endblock %}
